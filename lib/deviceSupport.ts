@@ -27,25 +27,7 @@ export function canHandle3D(): boolean {
 
     return true;
   } catch (e) {
+    console.error(e);
     return false;
-  }
-}
-
-export function get3DQualityFactor(): number {
-  if (typeof window === "undefined") return 0.5;
-
-  try {
-    const isMobile =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
-
-    const memory = (navigator as any).deviceMemory || 4;
-
-    let factor = (memory / 8) * (isMobile ? 0.5 : 1);
-
-    return Math.min(Math.max(factor, 0.3), 1.0);
-  } catch (e) {
-    return 0.5;
   }
 }
