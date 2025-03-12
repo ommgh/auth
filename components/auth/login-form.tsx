@@ -3,7 +3,7 @@ import * as z from "zod";
 import { CardWrapper } from "./card-wrapper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
+import { useState, useTransition, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "../ui/button";
 import {
@@ -19,7 +19,9 @@ import { FormError } from "../form-error";
 import { FormSuccess } from "../form-sucess";
 import { login } from "@/actions/login";
 import { Input } from "../ui/input";
-export const LoginForm = () => {
+
+// Create a separate component that uses useSearchParams
+const LoginFormWithSearchParams = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -28,6 +30,7 @@ export const LoginForm = () => {
     searchParams.get("error") === "OAuthAccountNotLinked"
       ? "Email already in use with different provider"
       : "";
+
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -105,5 +108,39 @@ export const LoginForm = () => {
         </form>
       </Form>
     </CardWrapper>
+  );
+};
+
+const LoginFormFallback = () => {
+  return (
+    <CardWrapper
+      headerLabel="Welcome back!"
+      backButtonHref="/auth/register"
+      backButtonLabel="Dont have an account? Sign up"
+      showSocials
+    >
+      <div className="space-y-6">
+        <div className="space-y-4">
+          {/* Placeholder for form fields */}
+          <div className="space-y-2">
+            <div className="text-sm font-medium">Email</div>
+            <div className="h-10 w-full bg-gray-100 rounded-md animate-pulse"></div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-sm font-medium">Password</div>
+            <div className="h-10 w-full bg-gray-100 rounded-md animate-pulse"></div>
+          </div>
+        </div>
+        <div className="h-10 w-full bg-gray-100 rounded-md animate-pulse"></div>
+      </div>
+    </CardWrapper>
+  );
+};
+
+export const LoginForm = () => {
+  return (
+    <Suspense fallback={<LoginFormFallback />}>
+      <LoginFormWithSearchParams />
+    </Suspense>
   );
 };
