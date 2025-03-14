@@ -15,8 +15,8 @@ import {
   FormMessage,
 } from "../ui/form";
 import { LoginSchema } from "@/schemas";
-import { FormError } from "../form-error";
-import { FormSuccess } from "../form-sucess";
+import { FormError } from "./form-error";
+import { FormSuccess } from "./form-sucess";
 import { login } from "@/actions/login";
 import { Input } from "../ui/input";
 

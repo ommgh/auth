@@ -9,7 +9,7 @@ export const Social = () => {
     signIn(provider, { callbackUrl: DEFAULT_AUTH_REDIRECT });
   };
   return (
-    <div className="flex items-center w-auto gap-x-5 p-2">
+    <div className="flex items-center w-auto gap-x-5">
       <Button
         size="lg"
         className="w-full"

@@ -4,8 +4,8 @@ import { BeatLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState, Suspense } from "react";
 import { newVerification } from "@/actions/new-verification";
-import { FormSuccess } from "../form-sucess";
-import { FormError } from "../form-error";
+import { FormSuccess } from "./form-sucess";
+import { FormError } from "./form-error";
 
 const VerificationContent = () => {
   const [error, setError] = useState<string | null>(null);

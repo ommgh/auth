@@ -14,8 +14,8 @@ import {
   FormMessage,
 } from "../ui/form";
 import { RegisterSchema } from "@/schemas";
-import { FormError } from "../form-error";
-import { FormSuccess } from "../form-sucess";
+import { FormError } from "./form-error";
+import { FormSuccess } from "./form-sucess";
 import { register } from "@/actions/register";
 import { Input } from "../ui/input";
 export const RegisterForm = () => {
